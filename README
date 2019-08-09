@@ -51,3 +51,22 @@ std::basic_string class template.
 [2] I mean the actual 7-bit ASCII and not extensions of it like, for example, the ISO-8859-x series.
 
 Leandro T. C. Melo
+
+===================================
+Add functions in header find.hpp
+find
+ifind
+
+Add functions in header replace.hpp
+replace
+ireplace
+replace_copy
+ireplace_copy
+
+Add functions in header split.hpp
+split
+
+Add functions in header join.hpp
+join
+
+iwongdotcn

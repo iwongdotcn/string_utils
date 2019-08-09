@@ -25,8 +25,14 @@
 #ifndef BASIC_STRING_UTILS_HPP
 #define BASIC_STRING_UTILS_HPP
 
-#include "trim.hpp"
-#include "case_conv.hpp"
 #include "predicate.hpp"
+#include "find.hpp"
+#include "replace.hpp"
+#include "trim.hpp"
+#include "split.hpp"
+#include "join.hpp"
+#include "case_conv.hpp"
+#include "utf_conv.hpp"
+#include "codec_conv.hpp"
 
 #endif

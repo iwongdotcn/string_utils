@@ -134,6 +134,13 @@ check_size(basic_string_t const& input, basic_string_t const& test)
   return input.size() >= test.size();
 }
 
+
+template <typename char_t, typename traits_t = std::char_traits<char_t>, typename allocator_t = std::allocator<char_t>>
+std::basic_string<char_t, traits_t, allocator_t>
+make_safe_string(char_t const* __unsafe) {
+	return std::basic_string<char_t, traits_t, allocator_t>(__unsafe ? __unsafe : "");
+}
+
 NAMESPACE_END
 
 NAMESPACE_END
