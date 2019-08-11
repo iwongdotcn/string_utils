@@ -139,11 +139,7 @@ template <typename char_t,
           typename traits_t = std::char_traits<char_t>,
           typename allocator_t = std::allocator<char_t>>
 std::basic_string<char_t, traits_t, allocator_t>
-<<<<<<< HEAD
 make_safe_string(char_t const* __unsafe) {
-=======
-make_string(char_t const* __unsafe) {
->>>>>>> 716d0bc4ec43010bb32a774905b8e991dc71f6f3
 	return std::basic_string<char_t,
            traits_t, allocator_t>(__unsafe ? __unsafe : "");
 }
