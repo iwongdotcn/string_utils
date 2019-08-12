@@ -15,7 +15,7 @@
 
 NAMESPACE_BEGIN
 
-int locale_is_utf8() {
+inline int locale_is_utf8() {
 	static int ret = 2;
 	if (ret == 2) {
 #if defined(_WIN32) || defined(_WINDOWS)
@@ -32,7 +32,7 @@ int locale_is_utf8() {
 	return ret;
 }
 
-std::wstring utf8_to_unicode(std::string const& str) {
+inline std::wstring utf8_to_unicode(std::string const& str) {
 	size_t src_len = str.size();
 	if (src_len == 0) {
 		return std::wstring();
@@ -41,7 +41,7 @@ std::wstring utf8_to_unicode(std::string const& str) {
 	return conv.from_bytes(str);
 }
 
-std::string unicode_to_utf8(std::wstring const& str) {
+inline std::string unicode_to_utf8(std::wstring const& str) {
 	size_t src_len = str.size();
 	if (src_len == 0) {
 		return std::string();
@@ -50,7 +50,7 @@ std::string unicode_to_utf8(std::wstring const& str) {
 	return conv.to_bytes(str);
 }
 
-std::wstring ansi_to_unicode(std::string const& str) {
+inline std::wstring ansi_to_unicode(std::string const& str) {
 	const char* source = str.c_str();
 	size_t source_len = str.length();
 	if (source_len == 0) {
@@ -59,21 +59,21 @@ std::wstring ansi_to_unicode(std::string const& str) {
 	size_t dest_len = 0;
 #if defined(_WIN32) || defined(_WINDOWS)
 	UINT cp = ::GetACP();
-	dest_len = ::MultiByteToWideChar(cp, 0, source, source_len, 0, 0);
+	dest_len = ::MultiByteToWideChar(cp, 0, source, static_cast<int>(source_len), 0, 0);
 #else
 	setlocale(LC_ALL, "");
 	dest_len = mbstowcs(nullptr, source, source_len);
 #endif
 	std::wstring dest(dest_len, L'\0');
 #if defined(_WIN32) || defined(_WINDOWS)
-	::MultiByteToWideChar(cp, 0, source, -1, &dest[0], dest_len);
+	::MultiByteToWideChar(cp, 0, source, -1, &dest[0], static_cast<int>(dest_len));
 #else
 	mbstowcs(&dest[0], source, source_len);
 #endif
 	return dest;
 }
 
-std::string unicode_to_ansi(std::wstring const& str) {
+inline std::string unicode_to_ansi(std::wstring const& str) {
 	size_t source_len = str.size();
 	if (source_len <= 0) {
 		return std::string();
@@ -82,21 +82,21 @@ std::string unicode_to_ansi(std::wstring const& str) {
 	size_t dest_len = 0;
 #if defined(_WIN32) || defined(_WINDOWS)
 	UINT cp = ::GetACP();
-	dest_len = ::WideCharToMultiByte(cp, 0, source, source_len, 0, 0, 0, 0);
+	dest_len = ::WideCharToMultiByte(cp, 0, source, static_cast<int>(source_len), 0, 0, 0, 0);
 #else
 	setlocale(LC_ALL, "");
 	dest_len = wcstombs(nullptr, source, source_len);
 #endif
 	std::string dest(dest_len, '\0');
 #if defined(_WIN32) || defined(_WINDOWS)
-	::WideCharToMultiByte(cp, 0, source, -1, &dest[0], dest_len, 0, 0);
+	::WideCharToMultiByte(cp, 0, source, -1, &dest[0], static_cast<int>(dest_len), 0, 0);
 #else
 	dest_len = wcstombs(&dest[0], source, dest_len);
 #endif
 	return dest;
 }
 
-std::string utf8_to_ansi(std::string const& str) {
+inline std::string utf8_to_ansi(std::string const& str) {
 	if (!locale_is_utf8()) {
 		std::wstring temp = utf8_to_unicode(str);
 		std::string dest = unicode_to_ansi(temp);
@@ -108,7 +108,7 @@ std::string utf8_to_ansi(std::string const& str) {
 	}
 }
 
-std::string ansi_to_utf8(std::string const& str) {
+inline std::string ansi_to_utf8(std::string const& str) {
 	if (!locale_is_utf8()) {
 		std::wstring temp = ansi_to_unicode(str);
 		std::string dest = unicode_to_utf8(temp);
@@ -121,11 +121,11 @@ std::string ansi_to_utf8(std::string const& str) {
 }
 
 #ifdef USE_UTFCPP
-bool is_valid_utf8(std::string const& str) {
+inline bool is_valid_utf8(std::string const& str) {
 	return utf8::is_valid(str.begin(), str.end());
 }
 
-bool starts_with_bom(std::string const& str) {
+inline bool starts_with_bom(std::string const& str) {
 	return utf8::starts_with_bom(str.begin(), str.end());
 }
 #endif

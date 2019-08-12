@@ -146,7 +146,7 @@ make_safe_string(char_t const* __unsafe) {
 
 NAMESPACE_END
 
-using make_string = detail::make_safe_string;
+using detail::make_safe_string;
 
 NAMESPACE_END
 

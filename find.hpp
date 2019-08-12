@@ -39,7 +39,7 @@ size_t ifind(std::basic_string<char_t, traits_t, allocator_t> const& __input,
 		for (; __pos <= __size - __n; ++__pos)
 			if (case_ignore::eq(__data[__pos], __search[0])
 				&& case_ignore::compare(__data + __pos + 1,
-					__search + 1, __n - 1) == 0)
+					&__search[1], __n - 1) == 0)
 				return __pos;
 	}
 	return __input.npos;
