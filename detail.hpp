@@ -146,7 +146,13 @@ make_safe_string(char_t const* __unsafe) {
 
 NAMESPACE_END
 
-using detail::make_safe_string;
+template <typename char_t,
+	typename traits_t = std::char_traits<char_t>,
+	typename allocator_t = std::allocator<char_t>>
+	std::basic_string<char_t, traits_t, allocator_t>
+	make_string(char_t const* __unsafe) {
+	return detail::make_safe_string(__unsafe);
+}
 
 NAMESPACE_END
 
