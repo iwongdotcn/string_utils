@@ -50,8 +50,7 @@ bool
 starts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
             char const* test)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return starts_with(input, string_type(test));
+  return starts_with(input, detail::make_safe_string(test));
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -59,8 +58,7 @@ bool
 starts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
             wchar_t const* test)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return starts_with(input, string_type(test));
+  return starts_with(input, detail::make_safe_string(test));
 }
 
 template <class allocator_t>
@@ -81,8 +79,7 @@ bool
 istarts_with(std::basic_string<char, std::char_traits<char>, allocator_t> const& input,
              char const* test)
 {
-  typedef std::basic_string<char, std::char_traits<char>, allocator_t> string_type;
-  return istarts_with(input, string_type(test));
+  return istarts_with(input, detail::make_safe_string(test));
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -105,8 +102,7 @@ istarts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
              char const* test,
              std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return istarts_with(input, string_type(test), loc);
+  return istarts_with(input, detail::make_safe_string(test), loc);
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -115,8 +111,7 @@ istarts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
              wchar_t const* test,
              std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return istarts_with(input, string_type(test), loc);
+  return istarts_with(input, detail::make_safe_string(test), loc);
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -137,8 +132,7 @@ bool
 ends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
           char const* test)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return ends_with(input, string_type(test));
+  return ends_with(input, detail::make_safe_string(test));
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -146,8 +140,7 @@ bool
 ends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
           wchar_t const* test)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return ends_with(input, string_type(test));
+  return ends_with(input, detail::make_safe_string(test));
 }
 
 
@@ -169,8 +162,7 @@ bool
 iends_with(std::basic_string<char, std::char_traits<char>, allocator_t> const& input,
            char const* test)
 {
-  typedef std::basic_string<char, std::char_traits<char>, allocator_t> string_type;
-  return iends_with(input, string_type(test));
+  return iends_with(input, detail::make_safe_string(test));
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -193,8 +185,7 @@ iends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
            char const* test,
            std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return iends_with(input, string_type(test), loc);
+  return iends_with(input, detail::make_safe_string(test), loc);
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -203,8 +194,7 @@ iends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
            wchar_t const* test,
            std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return iends_with(input, string_type(test), loc);
+  return iends_with(input, detail::make_safe_string(test), loc);
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -223,8 +213,7 @@ bool
 contains(std::basic_string<char_t, traits_t, allocator_t> const& input,
          char const* test)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return contains(input, string_type(test));
+  return contains(input, detail::make_safe_string(test));
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -232,8 +221,7 @@ bool
 contains(std::basic_string<char_t, traits_t, allocator_t> const& input,
          wchar_t const* test)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return contains(input, string_type(test));
+  return contains(input, detail::make_safe_string(test));
 }
 
 template <class allocator_t>
@@ -253,8 +241,7 @@ bool
 icontains(std::basic_string<char, std::char_traits<char>, allocator_t> const& input,
           char const* test)
 {
-  typedef std::basic_string<char, std::char_traits<char>, allocator_t> string_type;
-  return icontains(input, string_type(test));
+  return icontains(input, detail::make_safe_string(test));
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -275,8 +262,7 @@ icontains(std::basic_string<char_t, traits_t, allocator_t> const& input,
           char const* test,
           std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return icontains(input, string_type(test), loc);
+  return icontains(input, detail::make_safe_string(test), loc);
 }
 
 template <class char_t, class traits_t, class allocator_t>
@@ -285,10 +271,78 @@ icontains(std::basic_string<char_t, traits_t, allocator_t> const& input,
           wchar_t const* test,
           std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  return icontains(input, string_type(test), loc);
+  return icontains(input, detail::make_safe_string(test), loc);
 }
 
+template <class char_t, class traits_t, class allocator_t>
+bool
+equal(std::basic_string<char_t, traits_t, allocator_t> const& input,
+	  std::basic_string<char_t, traits_t, allocator_t> const& test)
+{
+  return (input == test);
+}
+
+template <class char_t, class traits_t, class allocator_t>
+bool
+equal(std::basic_string<char_t, traits_t, allocator_t> const& input,
+	  char_t const* test)
+{
+  return equal(input, detail::make_safe_string(test));
+}
+
+template <class char_t, class traits_t, class allocator_t>
+bool
+equal(char_t const* input,
+	  std::basic_string<char_t, traits_t, allocator_t> const& test)
+{
+  return equal(detail::make_safe_string(input), test);
+}
+
+template <class char_t>
+bool
+equal(char_t const* input, char_t const* test)
+{
+  return equal(detail::make_safe_string(input),
+    detail::make_safe_string(test));
+}
+
+template <class char_t, class traits_t, class allocator_t>
+bool
+iequal(std::basic_string<char_t, traits_t, allocator_t> const& input,
+	   std::basic_string<char_t, traits_t, allocator_t> const& test)
+{
+  if (input.size() != test.size())
+    return false;
+
+  return std::equal(test.begin(), test.end(), input.begin(),
+    detail::traits_iequal<char_t, traits_t>(std::locale()));
+}
+
+template <class char_t, class traits_t, class allocator_t>
+bool
+iequal(std::basic_string<char_t, traits_t, allocator_t> const& input,
+	   char_t const* test)
+{
+  return iequal(input,
+    detail::make_safe_string(test));
+}
+
+template <class char_t, class traits_t, class allocator_t>
+bool
+iequal(char_t const* input,
+	   std::basic_string<char_t, traits_t, allocator_t> const& test)
+{
+  return iequal(detail::make_safe_string(input),
+    test);
+}
+
+template <class char_t>
+bool
+iequal(char_t const* input, char_t const* test)
+{
+  return iequal(detail::make_safe_string(input),
+    detail::make_safe_string(test));
+}
 
 NAMESPACE_END
 

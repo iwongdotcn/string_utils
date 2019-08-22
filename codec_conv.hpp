@@ -30,7 +30,7 @@ bool base64_decode(std::string const& input, std::string& output)
 		nop,nop,nop,nop, nop,nop,nop,nop, nop,nop,nop,nop, nop,nop,nop,nop
 	};
 
-	unsigned int input_length = input.size();
+	unsigned int input_length = static_cast<unsigned int>(input.size());
 	const char* input_ptr = input.data();
 
 	// allocate space for output string
@@ -92,7 +92,7 @@ bool base64_encode(std::string const& input, std::string& output) {
 	static const char encoding_data[] =
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-	unsigned int input_length = input.size();
+	unsigned int input_length = static_cast<unsigned int>(input.size());
 	const char* input_ptr = input.data();
 
 	// allocate space for output string
@@ -206,7 +206,12 @@ std::string url_encode(const std::string& str) {
 		case '>': case '#': case '%': case '{': case '}': case '|':
 		case '\\': case '^': case '~': case '[': case ']': case '`':
 			// the character needs to be encoded
+#ifdef _WIN32
+			sprintf_s(encode_buf + 1, _countof(encode_buf) - 1,
+				"%.2X", (unsigned char)(str[pos]));
+#else
 			sprintf(encode_buf + 1, "%.2X", (unsigned char)(str[pos]));
+#endif // _WIN32
 			result += encode_buf;
 			break;
 		}
