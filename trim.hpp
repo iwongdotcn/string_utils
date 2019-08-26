@@ -35,9 +35,11 @@ NAMESPACE_BEGIN
 
 template <class allocator_t>
 void
-trim_left(std::basic_string<char, std::char_traits<char>, allocator_t> & input)
+trim_left(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
+	      const char* test = nullptr)
 {
-  input.erase(0, input.find_first_not_of(detail::space)); //The C++ standard requires that an
+  input.erase(0, input.find_first_not_of(detail::space + detail::make_safe_string(test)));
+    //The C++ standard requires that an
     //out_of_range exception is thrown only if pos > size(). So passing 0 is OK even for an
     //empty string.
 }
@@ -55,11 +57,12 @@ trim_left(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale 
 
 template <class allocator_t>
 void
-trim_right(std::basic_string<char, std::char_traits<char>, allocator_t> & input)
+trim_right(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
+	       const char* test = nullptr)
 {
   typedef std::basic_string<char, std::char_traits<char>, allocator_t> string_type;
 
-  std::size_t pos = input.find_last_not_of(detail::space);
+  std::size_t pos = input.find_last_not_of(detail::space + detail::make_safe_string(test));
   if (pos == string_type::npos)
     input.erase(0);
   else if (++pos != input.size())
@@ -79,10 +82,11 @@ trim_right(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale
 
 template <class allocator_t>
 void
-trim(std::basic_string<char, std::char_traits<char>, allocator_t> & input)
+trim(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
+	 const char* test = nullptr)
 {
-  trim_left(input);
-  trim_right(input);
+  trim_left(input, test);
+  trim_right(input, test);
 }
 
 
@@ -96,12 +100,13 @@ trim(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const
 
 template <class allocator_t>
 std::basic_string<char, std::char_traits<char>, allocator_t>
-trim_left_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const& input)
+trim_left_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const& input,
+               const char* test = nullptr)
 {
   typedef std::basic_string<char, std::char_traits<char>, allocator_t> string_type;
 
   string_type copy(input);
-  trim_left(copy);
+  trim_left(copy, test);
   return copy;
 }
 
@@ -142,12 +147,13 @@ trim_right_copy(std::basic_string<char_t, traits_t, allocator_t> const& input,
 
 template <class allocator_t>
 std::basic_string<char, std::char_traits<char>, allocator_t>
-trim_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const& input)
+trim_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const& input,
+          const char* test = nullptr)
 {
   typedef std::basic_string<char, std::char_traits<char>, allocator_t> string_type;
 
   string_type copy(input);
-  trim(copy);
+  trim(copy, test);
   return copy;
 }
 
