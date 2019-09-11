@@ -34,7 +34,7 @@
 NAMESPACE_BEGIN
 
 template <class allocator_t>
-void
+std::basic_string<char, std::char_traits<char>, allocator_t>&
 trim_left(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
 	      const char* test = nullptr)
 {
@@ -42,21 +42,22 @@ trim_left(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
     //The C++ standard requires that an
     //out_of_range exception is thrown only if pos > size(). So passing 0 is OK even for an
     //empty string.
+  return input;
 }
 
 template <class char_t, class traits_t, class allocator_t>
-void
-trim_left(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const& loc)
+std::basic_string<char_t, traits_t, allocator_t>&
+trim_left(std::basic_string<char_t, traits_t, allocator_t> & input,
+          std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  typedef typename string_type::iterator iterator;
-
-  iterator it = std::find_if(input.begin(), input.end(), detail::not_space<char_t>(loc));
+  auto it = std::find_if(input.begin(), input.end(),
+    detail::not_space<char_t>(loc));
   input.erase(input.begin(), it);
+  return input;
 }
 
 template <class allocator_t>
-void
+std::basic_string<char, std::char_traits<char>, allocator_t>&
 trim_right(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
 	       const char* test = nullptr)
 {
@@ -67,35 +68,38 @@ trim_right(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
     input.erase(0);
   else if (++pos != input.size())
     input.erase(pos);
+  return input;
 }
 
 template <class char_t, class traits_t, class allocator_t>
-void
-trim_right(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const& loc)
+std::basic_string<char_t, traits_t, allocator_t>&
+trim_right(std::basic_string<char_t, traits_t, allocator_t> & input,
+           std::locale const& loc)
 {
-  typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
-  typedef typename string_type::reverse_iterator reverse_iterator;
-
-  reverse_iterator it = std::find_if(input.rbegin(), input.rend(), detail::not_space<char_t>(loc));
+  auto it = std::find_if(input.rbegin(), input.rend(),
+    detail::not_space<char_t>(loc));
   input.erase(it.base(), input.end());
+  return input;
 }
 
 template <class allocator_t>
-void
+std::basic_string<char, std::char_traits<char>, allocator_t>&
 trim(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
 	 const char* test = nullptr)
 {
   trim_left(input, test);
   trim_right(input, test);
+  return input;
 }
 
 
 template <class char_t, class traits_t, class allocator_t>
-void
+std::basic_string<char_t, traits_t, allocator_t>&
 trim(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const& loc)
 {
   trim_left(input, loc);
   trim_right(input, loc);
+  return input;
 }
 
 template <class allocator_t>
