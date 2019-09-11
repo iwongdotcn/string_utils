@@ -102,7 +102,7 @@ replace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
 
 template <typename char_t>
 std::basic_string<char_t>
-replace_copy(std::basic_string<char_t>& __input,
+replace_copy(std::basic_string<char_t> const& __input,
 	char_t const* __search, char_t const* __format) {
 	auto __copy = __input;
 	replace(__copy, __search, __format);
@@ -130,7 +130,7 @@ ireplace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
 
 template <typename char_t>
 std::basic_string<char_t>
-ireplace_copy(std::basic_string<char_t>& __input,
+ireplace_copy(std::basic_string<char_t> const& __input,
 	char_t const* __search, char_t const* __format) {
 	return ireplace_copy(__input, detail::make_safe_string(__search),
 		detail::make_safe_string(__search));
