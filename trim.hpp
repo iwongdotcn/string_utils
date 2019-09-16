@@ -48,7 +48,7 @@ trim_left(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>&
 trim_left(std::basic_string<char_t, traits_t, allocator_t> & input,
-          std::locale const& loc)
+          std::locale const& loc = std::locale())
 {
   auto it = std::find_if(input.begin(), input.end(),
     detail::not_space<char_t>(loc));
@@ -74,7 +74,7 @@ trim_right(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>&
 trim_right(std::basic_string<char_t, traits_t, allocator_t> & input,
-           std::locale const& loc)
+           std::locale const& loc = std::locale())
 {
   auto it = std::find_if(input.rbegin(), input.rend(),
     detail::not_space<char_t>(loc));
@@ -95,7 +95,8 @@ trim(std::basic_string<char, std::char_traits<char>, allocator_t> & input,
 
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>&
-trim(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const& loc)
+trim(std::basic_string<char_t, traits_t, allocator_t> & input,
+     std::locale const& loc = std::locale())
 {
   trim_left(input, loc);
   trim_right(input, loc);
@@ -117,7 +118,7 @@ trim_left_copy(std::basic_string<char, std::char_traits<char>, allocator_t> cons
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>
 trim_left_copy(std::basic_string<char_t, traits_t, allocator_t> const& input,
-               std::locale const& loc)
+               std::locale const& loc = std::locale())
 {
   typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
 
@@ -140,7 +141,7 @@ trim_right_copy(std::basic_string<char, std::char_traits<char>, allocator_t> con
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>
 trim_right_copy(std::basic_string<char_t, traits_t, allocator_t> const& input,
-                std::locale const& loc)
+                std::locale const& loc = std::locale())
 {
   typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
 
@@ -164,7 +165,7 @@ trim_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const& in
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>
 trim_copy(std::basic_string<char_t, traits_t, allocator_t> const& input,
-          std::locale const& loc)
+          std::locale const& loc = std::locale())
 {
   typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
 
