@@ -8,7 +8,7 @@
 
 NAMESPACE_BEGIN
 
-bool base64_decode(std::string const& input, std::string& output)
+inline bool base64_decode(std::string const& input, std::string& output)
 {
 	static const char nop = -1;
 	static const char decoding_data[] = {
@@ -88,7 +88,7 @@ bool base64_decode(std::string const& input, std::string& output)
 	return true;
 }
 
-bool base64_encode(std::string const& input, std::string& output) {
+inline bool base64_encode(std::string const& input, std::string& output) {
 	static const char encoding_data[] =
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
@@ -138,7 +138,7 @@ bool base64_encode(std::string const& input, std::string& output) {
 	return true;
 }
 
-std::string url_decode(const std::string& str) {
+inline std::string url_decode(const std::string& str) {
 	char decode_buf[3];
 	std::string result;
 	result.reserve(str.size());
@@ -182,7 +182,7 @@ std::string url_decode(const std::string& str) {
 	return result;
 }
 
-std::string url_encode(const std::string& str) {
+inline std::string url_encode(const std::string& str) {
 	char encode_buf[4];
 	std::string result;
 	encode_buf[0] = '%';
@@ -220,7 +220,7 @@ std::string url_encode(const std::string& str) {
 	return result;
 }
 
-std::string xml_encode(const std::string& str) {
+inline std::string xml_encode(const std::string& str) {
 	std::string result;
 	result.reserve(str.size() + 20);    // Assume ~5 characters converted (length increases)
 	const unsigned char* ptr = reinterpret_cast<const unsigned char*>(str.c_str());
