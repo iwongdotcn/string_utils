@@ -25,6 +25,7 @@
 #ifndef BASIC_STRING_UTILS_HPP
 #define BASIC_STRING_UTILS_HPP
 
+#include "helper.hpp"
 #include "predicate.hpp"
 #include "find.hpp"
 #include "replace.hpp"
