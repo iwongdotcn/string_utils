@@ -85,11 +85,14 @@ inline bool ascii_iequal(char c1, char c2)
   return *(to_lower_table + c1) == *(to_lower_table + c2);
 }
 
+const std::locale default_locale;
+
 template <class char_t>
 class not_space : public std::unary_function<bool, char_t>
 {
 public:
-  not_space(std::locale const& loc):facet_(std::use_facet<std::ctype<char_t> >(loc))
+  not_space(std::locale const& loc)
+      : facet_(std::use_facet<std::ctype<char_t> >(loc))
   {}
 
   bool operator()(char_t character)
@@ -101,6 +104,31 @@ public:
 
 private:
   std::ctype<char_t> const& facet_;
+};
+
+template <class char_t>
+class not_space_nor_any_of
+  : public std::unary_function<bool, char_t>
+{
+public:
+  using ctype_t = std::ctype<char_t>;
+  using string_t = std::basic_string<char_t>;
+
+  not_space_nor_any_of(std::locale const& loc,
+                       char_t const * test)
+    : facet_(std::use_facet<ctype_t>(loc))
+    , test_(test ? test : string_t())
+  {}
+
+  bool operator()(char_t character) const
+  {
+    return !facet_.is(std::ctype_base::space, character)
+      && test_.find(character) == string_t::npos;
+  }
+
+private:
+  ctype_t const& facet_;
+  string_t const test_;
 };
 
 template <class char_t, class traits_t>
