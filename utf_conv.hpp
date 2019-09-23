@@ -10,7 +10,10 @@
 #include <codecvt>
 
 #if defined(_WIN32) || defined(_WINDOWS)
-#include <windows.h>
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <Windows.h>
 #endif
 
 NAMESPACE_BEGIN
@@ -33,21 +36,49 @@ inline int locale_is_utf8() {
 }
 
 inline std::wstring utf8_to_unicode(std::string const& str) {
+#ifdef _WIN32
+    int len = MultiByteToWideChar(CP_UTF8,
+        0, str.c_str(), -1, nullptr, 0);
+    if (len <= 0) {
+        return std::wstring();
+    }
+    std::wstring result(len, 0);
+    len = MultiByteToWideChar(CP_UTF8, 0,
+        str.c_str(), -1, &result[0], len);
+    while (!result.empty() && !result.back())
+        result.pop_back();
+    return result;
+#else
 	size_t src_len = str.size();
 	if (src_len == 0) {
 		return std::wstring();
 	}
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
 	return conv.from_bytes(str);
+#endif
 }
 
 inline std::string unicode_to_utf8(std::wstring const& str) {
+#ifdef _WIN32
+    int len = WideCharToMultiByte(CP_UTF8, 0, str.c_str(),
+        -1, nullptr, 0, nullptr, nullptr);
+    if (len <= 0) {
+        return std::string();
+    }
+    std::string result(len, 0);
+    len = WideCharToMultiByte(CP_UTF8, 0, str.c_str(),
+        -1, &result[0], len, nullptr, nullptr);
+    while (!result.empty() && !result.back())
+        result.pop_back();
+    return result;
+#else
 	size_t src_len = str.size();
 	if (src_len == 0) {
 		return std::string();
 	}
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
 	return conv.to_bytes(str);
+#endif
 }
 
 inline std::wstring ansi_to_unicode(std::string const& str) {
