@@ -4,7 +4,10 @@
 #pragma once
 #endif // _MSC_VER
 #include "config.hpp"
+#include <cstdint>
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 NAMESPACE_BEGIN
 
@@ -308,6 +311,19 @@ inline std::string xml_encode(const std::string& str) {
 	}
 
 	return result;
+}
+
+inline std::string hex_encode(const void* _buffer, size_t _size) {
+    auto byte_buffer = reinterpret_cast<const uint8_t*>(_buffer);
+    if (!byte_buffer) {
+        return std::string();
+    }
+    std::ostringstream out_stream;
+    out_stream << std::hex << std::setfill('0');
+    for (size_t i = 0; i < _size; ++i) {
+        out_stream << std::setw(2) << uint32_t(byte_buffer[i]);
+    }
+    return out_stream.str();
 }
 
 NAMESPACE_END
