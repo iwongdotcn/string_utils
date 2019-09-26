@@ -326,6 +326,34 @@ inline std::string hex_encode(const void* _buffer, size_t _size) {
     return out_stream.str();
 }
 
+inline size_t hex_decode(const std::string& _hex, void *_buffer, size_t _size) {
+    auto byte_buffer = reinterpret_cast<uint8_t*>(_buffer);
+    size_t need_size = _hex.size() / 2;
+    if (!need_size || !byte_buffer || _size < need_size) {
+        return need_size;
+    }
+    int hi_flag = 0, decoded_len = 0;
+    for (auto c : _hex) {
+        if (!std::isxdigit(c)) {
+            return 0;
+        }
+        if (decoded_len >= _size) {
+            return need_size;
+        }
+        const uint8_t binval = std::isdigit(c)
+            ? (c - '0') : (std::toupper(c) - 'A' + 10);
+        if (!hi_flag) {
+            byte_buffer[decoded_len] = (binval << 4);
+            hi_flag = 1;
+        }
+        else {
+            byte_buffer[decoded_len++] |= binval;
+            hi_flag = 0;
+        }
+    }
+    return decoded_len;
+}
+
 NAMESPACE_END
 
 #endif // BASIC_STRING_CODEC_CONV_HPP_HEADER
