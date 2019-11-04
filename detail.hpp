@@ -72,17 +72,21 @@ char const to_upper_table[128] =
 
 inline void ascii_to_lower(char & c)
 {
-  c = *(to_lower_table + c);
+  if (c > 0)
+    c = *(to_lower_table + c);
 }
 
 inline void ascii_to_upper(char & c)
 {
-  c = *(to_upper_table + c);
+  if (c > 0)
+    c = *(to_upper_table + c);
 }
 
 inline bool ascii_iequal(char c1, char c2)
 {
-  return *(to_lower_table + c1) == *(to_lower_table + c2);
+  ascii_to_upper(c1);
+  ascii_to_upper(c2);
+  return (c1 == c2);
 }
 
 const std::locale default_locale;
@@ -168,10 +172,22 @@ template <typename char_t,
           typename traits_t = std::char_traits<char_t>,
           typename allocator_t = std::allocator<char_t>>
 std::basic_string<char_t, traits_t, allocator_t>
-make_safe_string(char_t const* __unsafe) {
+make_safe_string(char_t const *__unsafe) {
   using string_type = std::basic_string<char_t,
     traits_t, allocator_t>;
   return (__unsafe) ? string_type(__unsafe) : string_type();
+}
+
+template <typename value_t>
+void
+to_string(const value_t& _value, std::basic_string<char>& _string) {
+  _string = std::to_string(_value);
+}
+
+template <typename value_t>
+void
+to_string(const value_t& _value, std::basic_string<wchar_t>& _string) {
+  _string = std::to_wstring(_value);
 }
 
 NAMESPACE_END
