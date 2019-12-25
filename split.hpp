@@ -84,14 +84,14 @@ split(std::basic_string<char_t, traits_t, allocator_t> const& __string,
 template <typename char_t>
 std::vector<std::basic_string<char_t>>
 split(std::basic_string<char_t> const& __string,
-      char_t const* __delimiters) {
+      char_t const *__delimiters) {
   return split(__string,
     detail::make_safe_string(__delimiters));
 }
 
 template <typename char_t>
 std::vector<std::basic_string<char_t>>
-split(char_t const* __string,
+split(char_t const *__string,
       std::basic_string<char_t> const& __delimiters) {
   return split(detail::make_safe_string(__string),
     __delimiters);
@@ -99,10 +99,25 @@ split(char_t const* __string,
 
 template <typename char_t>
 std::vector<std::basic_string<char_t>>
-split(char_t const* __string,
-      char_t const* __delimiters) {
+split(char_t const *__string,
+      char_t const *__delimiters) {
   return split(detail::make_safe_string(__string),
     detail::make_safe_string(__delimiters));
+}
+
+template <typename char_t>
+std::vector<std::basic_string<char_t>>
+split(std::basic_string<char_t> const& __string,
+      char_t __delimiter) {
+  return split(__string, std::basic_string<char_t>(1, __delimiter));
+}
+
+template <typename char_t>
+std::vector<std::basic_string<char_t>>
+split(char_t const *__string,
+      char_t __delimiter) {
+  return split(detail::make_safe_string(__string),
+    std::basic_string<char_t>(1, __delimiter));
 }
 
 NAMESPACE_END

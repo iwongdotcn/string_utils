@@ -1,6 +1,7 @@
 /******************************************************************************
  The MIT License
 
+ Copyright (c) 2019-2020 Wang Jun
  Copyright (c) 2009-2015 Leandro T. C. Melo
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -42,7 +43,8 @@ to_lower(std::basic_string<char, std::char_traits<char>, allocator_t> & input)
 
 template <class char_t, class traits_t, class allocator_t>
 void
-to_lower(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const& loc)
+to_lower(std::basic_string<char_t, traits_t, allocator_t> & input,
+         std::locale const& loc = detail::default_locale)
 {
   char_t * low = &*input.begin();
   std::use_facet<std::ctype<char_t> >(loc).tolower(low, low + input.length());
@@ -61,7 +63,8 @@ to_lower_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const
 
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>
-to_lower_copy(std::basic_string<char_t, traits_t, allocator_t> const& input, std::locale const& loc)
+to_lower_copy(std::basic_string<char_t, traits_t, allocator_t> const& input,
+              std::locale const& loc = detail::default_locale)
 {
   typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
 
@@ -79,7 +82,8 @@ to_upper(std::basic_string<char, std::char_traits<char>, allocator_t> & input)
 
 template <class char_t, class traits_t, class allocator_t>
 void
-to_upper(std::basic_string<char_t, traits_t, allocator_t> & input, std::locale const& loc)
+to_upper(std::basic_string<char_t, traits_t, allocator_t> & input,
+         std::locale const& loc = detail::default_locale)
 {
   char_t * low = &*input.begin();
   std::use_facet<std::ctype<char_t> >(loc).toupper(low, low + input.length());
@@ -98,7 +102,8 @@ to_upper_copy(std::basic_string<char, std::char_traits<char>, allocator_t> const
 
 template <class char_t, class traits_t, class allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>
-to_upper_copy(std::basic_string<char_t, traits_t, allocator_t> const& input, std::locale const& loc)
+to_upper_copy(std::basic_string<char_t, traits_t, allocator_t> const& input,
+              std::locale const& loc = detail::default_locale)
 {
   typedef std::basic_string<char_t, traits_t, allocator_t> string_type;
 

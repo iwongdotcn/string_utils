@@ -1,7 +1,7 @@
 /******************************************************************************
  The MIT License
 
- Copyright (c) 2019-2019 Wang Jun
+ Copyright (c) 2019-2020 Wang Jun
  Copyright (c) 2009-2015 Leandro T. C. Melo
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
