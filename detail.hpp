@@ -27,6 +27,7 @@
 #define BASIC_STRING_UTILS_DETAIL_HPP
 
 #include "config.hpp"
+#include <string>
 #include <functional>
 #include <locale>
 

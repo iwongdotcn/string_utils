@@ -14,6 +14,14 @@ template <typename char_t,
     return detail::make_safe_string(__unsafe);
 }
 
+template <typename char_t,
+    typename traits_t = std::char_traits<char_t>,
+    typename allocator_t = std::allocator<char_t>>
+    const std::basic_string<char_t, traits_t, allocator_t>&
+    make_string(const std::basic_string<char_t, traits_t, allocator_t>& __input) {
+    return __input;
+}
+
 NAMESPACE_END
 
 #endif // BASIC_STRING_UTILS_HELPER_HPP

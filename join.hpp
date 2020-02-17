@@ -11,7 +11,7 @@ NAMESPACE_BEGIN
 
 template <typename char_t, typename traits_t, typename allocator_t, typename container_t>
 std::basic_string<char_t, traits_t, allocator_t>
-join(const container_t& __strings,
+join(container_t const& __strings,
 	 std::basic_string<char_t, traits_t, allocator_t> const& __delimiter) {
   using string_type = std::basic_string<char_t, traits_t, allocator_t>;
   string_type __joined;
@@ -26,8 +26,8 @@ join(const container_t& __strings,
 
 template <typename char_t, typename container_t>
 std::basic_string<char_t>
-join(const container_t& __strings,
-     char_t const& __delimiter) {
+join(container_t const& __strings,
+     char_t const __delimiter) {
   using string_type = std::basic_string<char_t>;
   string_type __joined;
   size_t ncount = __strings.size();
@@ -41,9 +41,49 @@ join(const container_t& __strings,
 
 template <typename char_t, typename container_t>
 std::basic_string<char_t>
-join(const container_t& _strings,
-     char_t const* _delimiter) {
+join(container_t const& _strings,
+     char_t const *_delimiter) {
   return join(_strings, detail::make_safe_string(_delimiter));
+}
+
+template <typename char_t, typename traits_t, typename allocator_t, typename container_t>
+std::basic_string<char_t, traits_t, allocator_t>
+join_to_string(container_t const& __values,
+               std::basic_string<char_t, traits_t, allocator_t> const& __delimiter) {
+  using string_type = std::basic_string<char_t, traits_t, allocator_t>;
+  string_type __joined, strval;
+  size_t ncount = __values.size();
+  for (auto const& val : __values) {
+    detail::to_string(val, strval);
+    __joined += strval;
+    if (--ncount > 0)
+      __joined += __delimiter;
+  }
+  return __joined;
+}
+
+template <typename char_t, typename container_t>
+std::basic_string<char_t>
+join_to_string(container_t const& __values,
+               char_t const __delimiter) {
+  using string_type = std::basic_string<char_t>;
+  string_type __joined, strval;
+  size_t ncount = __values.size();
+  for (auto const& val : __values) {
+    detail::to_string(val, strval);
+    __joined += strval;
+    if (--ncount > 0)
+      __joined += __delimiter;
+  }
+  return __joined;
+}
+
+template <typename char_t, typename container_t>
+std::basic_string<char_t>
+join_to_string(container_t const& _values,
+               char_t const *_delimiter) {
+  return join_to_string(_values,
+      detail::make_safe_string(_delimiter));
 }
 
 NAMESPACE_END

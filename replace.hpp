@@ -11,6 +11,7 @@
 
 NAMESPACE_BEGIN
 
+// case-sensitive
 template <typename char_t, typename traits_t, typename allocator_t>
 void replace(std::basic_string<char_t, traits_t, allocator_t>& __input,
 	char_t const& __search, char_t const& __format) {
@@ -26,7 +27,6 @@ void replace(std::basic_string<char_t, traits_t, allocator_t>& __input,
 		return;
 	const size_t __n = __search.size();
 	const size_t __off = __format.size();
-
 	for (size_t lastPos = 0, findPos = 0; ;
 		lastPos = findPos + __off) {
 		findPos = find(__input, __search, lastPos);
@@ -45,6 +45,93 @@ void replace(std::basic_string<char_t>& __input,
 		detail::make_safe_string(__format));
 }
 
+
+// case-sensitive copy
+template <typename char_t, typename traits_t, typename allocator_t>
+std::basic_string<char_t, traits_t, allocator_t>
+replace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
+    char_t const& __search, char_t const& __format) {
+    return std::replace_copy(__input.begin(),
+		__input.end(), __search, __format);
+}
+
+template <typename char_t, typename traits_t, typename allocator_t>
+std::basic_string<char_t, traits_t, allocator_t>
+replace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
+    std::basic_string<char_t, traits_t, allocator_t> const& __search,
+    std::basic_string<char_t, traits_t, allocator_t> const& __format) {
+    auto __copy = __input;
+    replace(__copy, __search, __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(std::basic_string<char_t> const& __input,
+	std::basic_string<char_t> const& __search, char_t const* __format) {
+    auto __copy = __input;
+    replace(__copy, __search, detail::make_safe_string(__format));
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(std::basic_string<char_t> const& __input, char_t const* __search,
+	std::basic_string<char_t> const& __format) {
+    auto __copy = __input;
+    replace(__copy, detail::make_safe_string(__search), __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(std::basic_string<char_t> const& __input,
+    char_t const* __search, char_t const* __format) {
+    auto __copy = __input;
+    replace(__copy, detail::make_safe_string(__search),
+		detail::make_safe_string(__format));
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(char_t const* __input, std::basic_string<char_t> const& __search,
+	std::basic_string<char_t> const& __format) {
+    auto __copy = detail::make_safe_string(__input);
+    replace(__copy, __search, __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(char_t const* __input,
+	std::basic_string<char_t> const& __search, char_t const* __format) {
+    auto __copy = detail::make_safe_string(__input);
+    replace(__copy, __search, detail::make_safe_string(__format));
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(char_t const* __input, char_t const* __search,
+	std::basic_string<char_t> const& __format) {
+    auto __copy = detail::make_safe_string(__input);
+    replace(__copy, detail::make_safe_string(__search), __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+replace_copy(char_t const* __input,
+    char_t const* __search, char_t const* __format) {
+    auto __copy = detail::make_safe_string(__input);
+    replace(__copy, detail::make_safe_string(__search),
+        detail::make_safe_string(__format));
+    return __copy;
+}
+
+
+// not case-sensitive
 template <typename char_t, typename traits_t, typename allocator_t>
 void ireplace(std::basic_string<char_t, traits_t, allocator_t>& __input,
 	char_t const& __search, char_t const& __format) {
@@ -82,33 +169,8 @@ void ireplace(std::basic_string<char_t>& __input,
 		detail::make_safe_string(__format));
 }
 
-template <typename char_t, typename traits_t, typename allocator_t>
-std::basic_string<char_t, traits_t, allocator_t>
-replace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
-	char_t const& __search, char_t const& __format) {
-	return std::replace_copy(__input.begin(), __input.end(),
-		__search, __format);
-}
 
-template <typename char_t, typename traits_t, typename allocator_t>
-std::basic_string<char_t, traits_t, allocator_t>
-replace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
-	std::basic_string<char_t, traits_t, allocator_t> const& __search,
-	std::basic_string<char_t, traits_t, allocator_t> const& __format) {
-	auto __copy = __input;
-	replace(__copy, __search, __format);
-	return __copy;
-}
-
-template <typename char_t>
-std::basic_string<char_t>
-replace_copy(std::basic_string<char_t> const& __input,
-	char_t const* __search, char_t const* __format) {
-	auto __copy = __input;
-	replace(__copy, __search, __format);
-	return __copy;
-}
-
+// not case-sensitive copy
 template <typename char_t, typename traits_t, typename allocator_t>
 std::basic_string<char_t, traits_t, allocator_t>
 ireplace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
@@ -131,9 +193,66 @@ ireplace_copy(std::basic_string<char_t, traits_t, allocator_t> const& __input,
 template <typename char_t>
 std::basic_string<char_t>
 ireplace_copy(std::basic_string<char_t> const& __input,
+	std::basic_string<char_t> const& __search, char_t const* __format) {
+    auto __copy = __input;
+    ireplace(__copy, __search, detail::make_safe_string(__format));
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+ireplace_copy(std::basic_string<char_t> const& __input,
+    char_t const* __search, std::basic_string<char_t> const& __format) {
+    auto __copy = __input;
+    ireplace(__copy, detail::make_safe_string(__search), __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+ireplace_copy(std::basic_string<char_t> const& __input,
 	char_t const* __search, char_t const* __format) {
-	return ireplace_copy(__input, detail::make_safe_string(__search),
-		detail::make_safe_string(__search));
+    auto __copy = __input;
+    ireplace(__copy, detail::make_safe_string(__search),
+		detail::make_safe_string(__format));
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+ireplace_copy(char_t const* __input,
+	std::basic_string<char_t> const& __search, std::basic_string<char_t> const& __format) {
+    auto __copy = detail::make_safe_string(__input);
+    ireplace(__copy, __search, __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+ireplace_copy(char_t const* __input,
+    char_t const* __search, std::basic_string<char_t> const& __format) {
+    auto __copy = detail::make_safe_string(__input);
+    ireplace(__copy, detail::make_safe_string(__search), __format);
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+ireplace_copy(char_t const* __input,
+    std::basic_string<char_t> const& __search, char_t const* __format) {
+    auto __copy = detail::make_safe_string(__input);
+    ireplace(__copy, __search, detail::make_safe_string(__format));
+    return __copy;
+}
+
+template <typename char_t>
+std::basic_string<char_t>
+ireplace_copy(char_t const* __input,
+    char_t const* __search, char_t const* __format) {
+    auto __copy = detail::make_safe_string(__input);
+    ireplace(__copy, detail::make_safe_string(__search),
+		detail::make_safe_string(__format));
+    return __copy;
 }
 
 NAMESPACE_END
