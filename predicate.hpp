@@ -87,7 +87,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 istarts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
              std::basic_string<char_t, traits_t, allocator_t> const& test,
-             std::locale const& loc)
+             std::locale const& loc = detail::default_locale)
 {
   if (!detail::check_size(input, test))
     return false;
@@ -101,7 +101,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 istarts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
              char const* test,
-             std::locale const& loc)
+             std::locale const& loc = detail::default_locale)
 {
   return istarts_with(input, detail::make_safe_string(test), loc);
 }
@@ -110,7 +110,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 istarts_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
              wchar_t const* test,
-             std::locale const& loc)
+             std::locale const& loc = detail::default_locale)
 {
   return istarts_with(input, detail::make_safe_string(test), loc);
 }
@@ -170,7 +170,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 iends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
            std::basic_string<char_t, traits_t, allocator_t> const& test,
-           std::locale const& loc)
+           std::locale const& loc = detail::default_locale)
 {
   if (!detail::check_size(input, test))
     return false;
@@ -184,7 +184,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 iends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
            char const* test,
-           std::locale const& loc)
+           std::locale const& loc = detail::default_locale)
 {
   return iends_with(input, detail::make_safe_string(test), loc);
 }
@@ -193,7 +193,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 iends_with(std::basic_string<char_t, traits_t, allocator_t> const& input,
            wchar_t const* test,
-           std::locale const& loc)
+           std::locale const& loc = detail::default_locale)
 {
   return iends_with(input, detail::make_safe_string(test), loc);
 }
@@ -249,7 +249,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 icontains(std::basic_string<char_t, traits_t, allocator_t> const& input,
           std::basic_string<char_t, traits_t, allocator_t> const& test,
-          std::locale const& loc)
+          std::locale const& loc = detail::default_locale)
 {
   if (std::search(input.begin(), input.end(), test.begin(), test.end(),
                   detail::traits_iequal<char_t, traits_t>(loc)) != input.end())
@@ -261,7 +261,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 icontains(std::basic_string<char_t, traits_t, allocator_t> const& input,
           char const* test,
-          std::locale const& loc)
+          std::locale const& loc = detail::default_locale)
 {
   return icontains(input, detail::make_safe_string(test), loc);
 }
@@ -270,7 +270,7 @@ template <class char_t, class traits_t, class allocator_t>
 bool
 icontains(std::basic_string<char_t, traits_t, allocator_t> const& input,
           wchar_t const* test,
-          std::locale const& loc)
+          std::locale const& loc = detail::default_locale)
 {
   return icontains(input, detail::make_safe_string(test), loc);
 }
