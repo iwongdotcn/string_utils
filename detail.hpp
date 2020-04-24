@@ -93,7 +93,7 @@ inline bool ascii_iequal(char c1, char c2)
 const std::locale default_locale;
 
 template <class char_t>
-class not_space : public std::unary_function<bool, char_t>
+class not_space //: public std::unary_function<bool, char_t>
 {
 public:
   not_space(std::locale const& loc)
@@ -113,7 +113,7 @@ private:
 
 template <class char_t>
 class not_space_nor_any_of
-  : public std::unary_function<bool, char_t>
+//  : public std::unary_function<bool, char_t>
 {
 public:
   using ctype_t = std::ctype<char_t>;
@@ -137,7 +137,7 @@ private:
 };
 
 template <class char_t, class traits_t>
-struct traits_equal : public std::binary_function<bool, char_t, char_t>
+struct traits_equal //: public std::binary_function<bool, char_t, char_t>
 {
   bool operator()(char_t c1, char_t c2)
   {
@@ -146,7 +146,7 @@ struct traits_equal : public std::binary_function<bool, char_t, char_t>
 };
 
 template <class char_t, class traits_t>
-class traits_iequal : public std::binary_function<bool, char_t, char_t>
+class traits_iequal //: public std::binary_function<bool, char_t, char_t>
 {
 public:
   traits_iequal(std::locale const& loc):facet_(std::use_facet<std::ctype<char_t> >(loc))

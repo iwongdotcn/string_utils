@@ -46,6 +46,8 @@ void
 to_lower(std::basic_string<char_t, traits_t, allocator_t> & input,
          std::locale const& loc = detail::default_locale)
 {
+  if (input.empty())
+    return;
   char_t * low = &*input.begin();
   std::use_facet<std::ctype<char_t> >(loc).tolower(low, low + input.length());
 }
@@ -85,7 +87,9 @@ void
 to_upper(std::basic_string<char_t, traits_t, allocator_t> & input,
          std::locale const& loc = detail::default_locale)
 {
-  char_t * low = &*input.begin();
+  if (input.empty())
+    return;
+  char_t* low = &*input.begin();
   std::use_facet<std::ctype<char_t> >(loc).toupper(low, low + input.length());
 }
 
