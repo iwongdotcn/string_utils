@@ -1,5 +1,5 @@
-#ifndef BASIC_STRING_UTF_CONV_HPP_HEADER
-#define BASIC_STRING_UTF_CONV_HPP_HEADER
+#ifndef BASIC_STRING_UTILS_UTF_CONV_HPP_HEADER
+#define BASIC_STRING_UTILS_UTF_CONV_HPP_HEADER
 #ifdef _MSC_VER
 #pragma once
 #endif // _MSC_VER
@@ -163,4 +163,4 @@ inline bool starts_with_bom(std::string const& str) {
 
 NAMESPACE_END
 
-#endif // BASIC_STRING_UTF_CONV_HPP_HEADER
+#endif // BASIC_STRING_UTILS_UTF_CONV_HPP_HEADER

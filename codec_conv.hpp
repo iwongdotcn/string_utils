@@ -1,5 +1,5 @@
-#ifndef BASIC_STRING_CODEC_CONV_HPP_HEADER
-#define BASIC_STRING_CODEC_CONV_HPP_HEADER
+#ifndef BASIC_STRING_UTILS_CODEC_CONV_HPP_HEADER
+#define BASIC_STRING_UTILS_CODEC_CONV_HPP_HEADER
 #ifdef _MSC_VER
 #pragma once
 #endif // _MSC_VER
@@ -356,4 +356,4 @@ inline size_t hex_decode(const std::string& _hex, void *_buffer, size_t _size) {
 
 NAMESPACE_END
 
-#endif // BASIC_STRING_CODEC_CONV_HPP_HEADER
+#endif // BASIC_STRING_UTILS_CODEC_CONV_HPP_HEADER

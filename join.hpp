@@ -1,5 +1,5 @@
-#ifndef BASIC_STRING_JOIN_HPP_HEADER
-#define BASIC_STRING_JOIN_HPP_HEADER
+#ifndef BASIC_STRING_UTILS_JOIN_HPP_HEADER
+#define BASIC_STRING_UTILS_JOIN_HPP_HEADER
 #ifdef _MSC_VER
 #pragma once
 #endif // _MSC_VER
@@ -88,4 +88,4 @@ join_to_string(container_t const& _values,
 
 NAMESPACE_END
 
-#endif // BASIC_STRING_JOIN_HPP_HEADER
+#endif // BASIC_STRING_UTILS_JOIN_HPP_HEADER

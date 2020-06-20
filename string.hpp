@@ -34,7 +34,7 @@
 #include "split.hpp"
 #include "join.hpp"
 #include "case_conv.hpp"
-#include "utf_conv.hpp"
 #include "codec_conv.hpp"
+//#include "utf_conv.hpp"
 
 #endif

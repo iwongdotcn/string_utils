@@ -22,8 +22,8 @@
  THE SOFTWARE.
 ******************************************************************************/
 
-#ifndef CONFIG_HPP
-#define CONFIG_HPP
+#ifndef BASIC_STRING_UTILS_CONFIG_HPP
+#define BASIC_STRING_UTILS_CONFIG_HPP
 
 #define NAMESPACE_BEGIN namespace str {
 #define DETAIL_NAMESPACE_BEGIN namespace detail {
